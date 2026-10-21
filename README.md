@@ -14,7 +14,7 @@ This semester, we are focusing on the main shared-ride process. An organizer pos
 | Member              | Scrum role    | GitHub username |
 | ------------------- | ------------- | --------------- |
 | Siddhant Khandelwal | Product Owner | sidkhandelwal7  |
-|                     | Scrum Master  |                 |
+|  Terrick Wright     | Scrum Master  |    TLW94-git    |
 |                     | Developer     |                 |
 |                     | Developer     |                 |
 
