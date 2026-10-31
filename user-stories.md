@@ -35,6 +35,18 @@ MVP: no
 - [ ] Profile photos must be JPG or PNG files. Other file types are rejected with a message listing the accepted formats.
 - [ ] The student can turn the departure reminder from US16 on or off, and the choice is still there the next time they open their profile.
 
+## US19: Sign in and out
+As a Pitt student, I want to sign in with my email and password and sign out when I am done so that only I can post, search, and manage my rides.
+FR: FR1, FR13
+Priority: Must
+MVP: yes
+
+- [ ] The sign-in form asks for the @pitt.edu email and password, and both must be filled in before it can be submitted.
+- [ ] A wrong email or password shows one generic message ("The email or password is incorrect") that does not say which one was wrong.
+- [ ] After signing in, the student lands on the My Rides page (US12), and every page shows a Sign out link.
+- [ ] Signing out ends the session; the browser's back button cannot show a ride page or form that needs a signed-in user.
+- [ ] A signed-in but unverified student still sees the verify-your-email prompt from US2 instead of the post, search, and join actions.
+
 # E2: Offering a ride
 Ride Organizers can post an Uber or Lyft ride, update or cancel it when plans change, and open the ride-hailing app when it is time to book.
 
