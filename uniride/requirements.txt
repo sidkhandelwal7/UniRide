@@ -1,0 +1,6 @@
+# Use ready-made packages when they exist, so nothing has to be compiled.
+# The newest argon2-cffi-bindings has no ready-made package for Intel Macs.
+--prefer-binary
+
+Django[argon2]==6.1.3
+python-dotenv==1.2.4

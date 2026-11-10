@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+  {% if user.is_authenticated %}
+    <h1>Hi, {{ user.name }}</h1>
+
+    {% if user.is_verified %}
+      <p class="badge">Verified Pitt student</p>
+    {% else %}
+      <p class="notice">
+        Your Pitt email is not verified yet. Verification emails are not built
+        yet (US2).
+      </p>
+    {% endif %}
+
+    <p>What do you want to do?</p>
+    <div class="actions">
+      <button class="big-button" type="button" disabled>Post a ride</button>
+      <button class="big-button" type="button" disabled>Find a ride</button>
+    </div>
+    <p class="small">Posting and finding rides are coming in Sprint 5.</p>
+  {% else %}
+    <h1>Share an Uber or Lyft with other Pitt students</h1>
+    <p>
+      UniRide helps Pitt students who are going to the same place share a ride
+      and split the fare.
+    </p>
+    <div class="actions">
+      <a class="big-button" href="{% url 'accounts:register' %}">Create account</a>
+      <a class="big-button secondary" href="{% url 'accounts:sign_in' %}">Sign in</a>
+    </div>
+  {% endif %}
+{% endblock %}
