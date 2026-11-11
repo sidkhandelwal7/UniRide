@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Django
+db.sqlite3
+
+# Secrets (copy uniride/.env.example to uniride/.env instead)
+.env
+
+# macOS and editors
+.DS_Store
+.vscode/
+.idea/
+
+# Course script (the course README says it does not need to be committed)
+stories_to_github.py
