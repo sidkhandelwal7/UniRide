@@ -1,10 +1,11 @@
-# rides: Ride Management (placeholder)
+# rides: Ride Management
 
-Nothing is built here yet. This folder is the Django app for the **Ride Management** subsystem from Sprint 3.
+This folder is the Django app for the **Ride Management** subsystem from Sprint 3.
 
-- **Classes it will own:** RideBoard, Ride, RideOption
-- **Interface it will provide:** RideService (postRide, searchRides, getRide, cancelRide, completeRide, ...)
+- **Built so far (Sprint 5):** the RideOption and Ride models, the four ride options (migration `0002_add_ride_options`), and the Post a ride page (US4).
+- **Classes it owns:** Ride, RideOption. RideBoard is not a table; its post and search operations are functions in `services.py`.
+- **Interface it provides:** RideService (postRide, searchRides, getRide, cancelRide, completeRide, ...)
 - **User stories:** US4, US5, US7, US8, US12, US17, US18
 - **Uses:** PlaceService (places), NotificationService (notifications)
 
-When you start working here, add the models to `models.py` and run `python manage.py makemigrations rides`.
+The base fare and per-mile rate of each ride option are our own estimates. They can be changed on the admin site (Rides > Ride options).
