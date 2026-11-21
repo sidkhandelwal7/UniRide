@@ -1,0 +1,10 @@
+{# US2 and US19: shown to signed-in students who have not verified their Pitt email yet. #}
+<div class="notice">
+  <p><strong>Verify your Pitt email to post, find, and join rides.</strong></p>
+  <p>We sent a link to {{ user.email }} when you made your account. Links work for 1 hour.</p>
+  <form method="post" action="{% url 'accounts:new_link' %}">
+    {% csrf_token %}
+    <input type="hidden" name="email" value="{{ user.email }}">
+    <button class="big-button secondary" type="submit">Send me a new link</button>
+  </form>
+</div>

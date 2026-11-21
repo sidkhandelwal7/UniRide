@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}Link not working - UniRide{% endblock %}
+
+{% block content %}
+  {% if expired %}
+    <h1>This link expired</h1>
+    <p>Verification links stop working after 1 hour. Enter your Pitt email to get a new one.</p>
+  {% else %}
+    <h1>This link does not work</h1>
+    <p>
+      The link may be mistyped, or a newer link was sent after it. Only the newest
+      link works. Enter your Pitt email to get a new one.
+    </p>
+  {% endif %}
+
+  <form method="post" action="{% url 'accounts:new_link' %}" class="card">
+    {% csrf_token %}
+    {% include "accounts/_form_fields.html" %}
+    <button class="big-button" type="submit">Send me a new link</button>
+  </form>
+{% endblock %}

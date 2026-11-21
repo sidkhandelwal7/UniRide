@@ -8,4 +8,8 @@ urlpatterns = [
     path("register/", views.register, name="register"),
     path("sign-in/", views.sign_in, name="sign_in"),
     path("sign-out/", views.sign_out, name="sign_out"),
+    # US2: email verification
+    path("verify/<str:code>/", views.verify_email, name="verify_email"),
+    path("new-link/", views.new_link, name="new_link"),
+    path("verify-first/", views.verify_first, name="verify_first"),
 ]

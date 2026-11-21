@@ -32,3 +32,9 @@ class SignInForm(forms.Form):
 
     email = forms.EmailField(label="Pitt email")
     password = forms.CharField(widget=forms.PasswordInput)
+
+
+class NewLinkForm(forms.Form):
+    """US2: ask for a new verification link."""
+
+    email = forms.EmailField(label="Pitt email")

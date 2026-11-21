@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block title %}Verify your email - UniRide{% endblock %}
+
+{% block content %}
+  <h1>Verify your email first</h1>
+  <p>Only students with a verified @pitt.edu email can post, find, or join rides.</p>
+
+  {% include "accounts/_verify_prompt.html" %}
+{% endblock %}

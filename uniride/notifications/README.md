@@ -1,10 +1,11 @@
-# notifications: Notifications (placeholder)
+# notifications: Notifications
 
-Nothing is built here yet. This folder is the Django app for the **Notifications** subsystem from Sprint 3.
+This folder is the Django app for the **Notifications** subsystem from Sprint 3.
 
-- **Class it will own:** Notification
-- **Interface it will provide:** NotificationService (notify, sendVerificationEmail, scheduleReminder)
-- **User stories:** US2 (verification email), US5, US10, US11, US13, US14, US16, US18
-- **Uses:** an email provider (not chosen yet). For now Django prints emails in the terminal.
+- **Built so far (Sprint 5):** `services.py` has `send_verification_email`, which sends the US2 verification link right away.
+- **Class it will own:** Notification (added when the ride emails are built)
+- **Interface it provides:** NotificationService (notify, sendVerificationEmail, scheduleReminder)
+- **User stories:** US2 (verification email, done), US5, US10, US11, US13, US14, US16, US18
+- **Uses:** an email server. Emails print in the terminal unless the `EMAIL_` settings in `.env` are filled in (see `.env.example`).
 
-When you start working here, add the model to `models.py` and run `python manage.py makemigrations notifications`.
+When you add the Notification model, run `python manage.py makemigrations notifications`.
