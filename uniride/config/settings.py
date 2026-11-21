@@ -149,11 +149,28 @@ STATICFILES_DIRS = [BASE_DIR / "static"]
 
 # Email
 # https://docs.djangoproject.com/en/6.1/topics/email/#topic-email-configuration
-# For now emails are printed in the terminal. We will pick a real email
-# provider after testing delivery to our Pitt inboxes (Sprint 5).
+# By default, emails (like the US2 verification link) are printed in the
+# terminal. To send real emails, for example for the Pitt inbox test in issue
+# #38, fill in the EMAIL_ settings in your .env file (see .env.example).
 
-MAILERS = {
-    "default": {
-        "BACKEND": "django.core.mail.backends.console.EmailBackend",
-    },
-}
+DEFAULT_FROM_EMAIL = os.environ.get("DEFAULT_FROM_EMAIL", "UniRide <noreply@uniride.local>")
+
+if os.environ.get("EMAIL_HOST"):
+    MAILERS = {
+        "default": {
+            "BACKEND": "django.core.mail.backends.smtp.EmailBackend",
+            "OPTIONS": {
+                "host": os.environ["EMAIL_HOST"],
+                "port": int(os.environ.get("EMAIL_PORT", "587")),
+                "username": os.environ.get("EMAIL_HOST_USER", ""),
+                "password": os.environ.get("EMAIL_HOST_PASSWORD", ""),
+                "use_tls": os.environ.get("EMAIL_USE_TLS", "True") == "True",
+            },
+        },
+    }
+else:
+    MAILERS = {
+        "default": {
+            "BACKEND": "django.core.mail.backends.console.EmailBackend",
+        },
+    }

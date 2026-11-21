@@ -47,15 +47,17 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     AbstractBaseUser adds the password hash and last_login fields.
 
-    Not added yet (planned for Sprint 5):
-      - verificationCode, verificationExpiresAt (US2)
-      - displayName, photo, notificationPreferences (US3)
+    Not added yet: displayName, photo, notificationPreferences (US3).
     """
 
     email = models.EmailField(unique=True)
     name = models.CharField(max_length=100)
-    # New accounts start as unverified (US1). Verifying by email is US2.
+    # New accounts start as unverified (US1). Opening the emailed link verifies them (US2).
     is_verified = models.BooleanField(default=False)
+    # US2: the code in the emailed verification link, and when the link stops working.
+    # A new link replaces the old code, so only the newest link works.
+    verification_code = models.CharField(max_length=64, blank=True)
+    verification_expires_at = models.DateTimeField(null=True, blank=True)
     # Empty only for admin accounts that were made with createsuperuser.
     university = models.ForeignKey(University, on_delete=models.PROTECT, null=True, blank=True)
 

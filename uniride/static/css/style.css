@@ -142,6 +142,10 @@ input {
   background: #fff7d6;
 }
 
+.notice p {
+  margin: 0 0 10px;
+}
+
 .error {
   margin: 6px 0 0;
   border: 1px solid #b42318;
