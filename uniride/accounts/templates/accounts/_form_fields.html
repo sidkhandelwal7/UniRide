@@ -1,4 +1,4 @@
-{# Shared by the register and sign-in pages. #}
+{# Shared by all of our forms (accounts and rides). #}
 {% for error in form.non_field_errors %}
   <p class="error" role="alert">{{ error }}</p>
 {% endfor %}
@@ -7,6 +7,9 @@
   <div class="field">
     <label for="{{ field.id_for_label }}">{{ field.label }}</label>
     {{ field }}
+    {% if field.help_text %}
+      <p class="help" id="{{ field.auto_id }}_helptext">{{ field.help_text }}</p>
+    {% endif %}
     {% for error in field.errors %}
       <p class="error" role="alert">{{ error }}</p>
     {% endfor %}

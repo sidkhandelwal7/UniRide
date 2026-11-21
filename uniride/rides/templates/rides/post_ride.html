@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}Post a ride - UniRide{% endblock %}
+
+{% block content %}
+  <h1>Post a ride</h1>
+  <p>
+    Post your trip before you book the Uber or Lyft. Other verified Pitt students
+    going the same way can find it, and you split the fare.
+  </p>
+
+  <form method="post" class="card">
+    {% csrf_token %}
+    {% include "accounts/_form_fields.html" %}
+    <button class="big-button" type="submit">Post ride</button>
+  </form>
+
+  <p class="small">
+    You do not book or pay for anything here. You book the Uber or Lyft yourself
+    when it is time to leave.
+  </p>
+{% endblock %}

@@ -51,13 +51,13 @@ All of the code is in the `uniride/` folder.
 
 | Subsystem (Sprint 3) | Folder | Status |
 | -------------------- | ------ | ------ |
-| Web UI | `uniride/templates/` and `uniride/static/` for the shared layout, plus the `views.py`, `forms.py`, and `templates/` inside each app | Home, create account, sign in, and verification pages |
+| Web UI | `uniride/templates/` and `uniride/static/` for the shared layout, plus the `views.py`, `forms.py`, and `templates/` inside each app | Home, create account, sign in, verification, and post a ride pages |
 | Accounts & Verification | `uniride/accounts/` | Create account, email verification, sign in, and sign out work |
-| Ride Management | `uniride/rides/` | Placeholder |
+| Ride Management | `uniride/rides/` | Post a ride works |
 | Ride Coordination | `uniride/coordination/` | Placeholder |
 | Notifications | `uniride/notifications/` | Sends the verification email |
-| Places & Maps | `uniride/places/` | Placeholder |
-| Data Storage | The `models.py` and `migrations/` in each app (Django ORM), and the database file `uniride/db.sqlite3` | User and University tables |
+| Places & Maps | `uniride/places/` | List of Pitt places |
+| Data Storage | The `models.py` and `migrations/` in each app (Django ORM), and the database file `uniride/db.sqlite3` | User, University, Location, RideOption, and Ride tables |
 
 `uniride/config/` holds the Django settings and the main list of URLs. It is not a subsystem.
 
@@ -126,8 +126,9 @@ These commands are for the Terminal on macOS. The Windows versions are in the co
 3. Try an email that does not end in `@pitt.edu`. You should see "Only @pitt.edu email addresses can sign up."
 4. Sign in with the account you made. The home page should say "Hi," and your name, and ask you to verify your Pitt email.
 5. Look in the terminal where the server is running. Copy the link from the "Verify your UniRide account" email and open it. You should see "Your Pitt email is verified" and a **Verified Pitt student** badge.
-6. Click **Sign out**. You should see "You are signed out."
-7. Stop the server and run the tests:
+6. Click **Post a ride**. Pick a meeting point, a destination, and a ride option, then click **Post ride**. You should see "Your ride is posted."
+7. Click **Sign out**. You should see "You are signed out."
+8. Stop the server and run the tests:
 
    ```
    python manage.py test
@@ -196,6 +197,12 @@ A student signs in with their Pitt email and password. A wrong email or password
 
 **How to use it:** click **Sign in** at the top of any page.
 
+### Post a ride (US4)
+
+A verified student posts a ride before booking the Uber or Lyft, so other students going the same way can join and split the fare. They pick a meeting point and destination from our list of public places (airports, bus and train stations, event venues, and campus spots; never a home address) and a ride option: UberX, UberXL, Lyft Standard, or Lyft XL. Everything else has a default they can change: the date is today, the time window is from now until 30 minutes from now, open seats are 3 for UberX or Lyft Standard and 5 for the XL options, and luggage space is one bag per open seat. UniRide shows an error if the two places are the same, the time window is wrong or already over, there are too many or too few seats for the ride option, or the luggage space is negative. The ride is saved as "open". Nobody books or pays anything in UniRide.
+
+**How to use it:** sign in with a verified account and click **Post a ride** on the home page.
+
 ### Admin site
 
 The Django admin site shows the saved tables. Make an admin user with `python manage.py createsuperuser` and open http://127.0.0.1:8000/admin/.
@@ -203,7 +210,7 @@ The Django admin site shows the saved tables. Make an admin user with `python ma
 ## What does not work yet
 
 - After signing in, the student sees the home page. US19 says it should be the My Rides page (US12), which is not built yet.
-- The **Post a ride** and **Find a ride** buttons are turned off. The `rides`, `coordination`, and `places` apps are placeholders.
+- Finding a ride (US7), seeing a ride's details (US8), and asking to join (US10). The **Find a ride** button is turned off, and the `coordination` app is a placeholder.
 - Editing a profile (US3).
 - Ride emails (requests, cancellations, reminders). Only the verification email is built.
 - There is no map service or hosting yet. The app only runs on a laptop with SQLite.
