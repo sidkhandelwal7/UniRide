@@ -1,5 +1,7 @@
 # UniRide
 
+[![CI](https://github.com/sidkhandelwal7/UniRide/actions/workflows/ci.yml/badge.svg)](https://github.com/sidkhandelwal7/UniRide/actions/workflows/ci.yml)
+
 - **Team name:** UniRide
 - **Course:** CS 1530 Software Engineering, University of Pittsburgh, Fall 2026
 
@@ -7,15 +9,15 @@
 
 UniRide helps Pitt students find other students traveling to the same destination, such as Pittsburgh International Airport, the Greyhound station, or a concert venue. They can join the same Uber or Lyft and split the fare instead of paying for separate rides. Only students who verify an @pitt.edu email address can post, search for, or join rides.
 
-This semester, we are focusing on the main shared-ride process. An organizer posts a trip before booking it, and other verified students can search for the trip and ask to join. The organizer accepts or declines each request, and the group receives email updates about the ride. When it is time to leave, the organizer books the Uber or Lyft. After the trip, the organizer enters the final fare from the receipt, and UniRide calculates each person's equal share. Payments happen outside UniRide.
+The goal is for one student to post a trip and others to ask to join. The organizer books the ride separately and enters the fare afterward. Payments happen outside UniRide.
 
 ## Team
 
 | Member              | Scrum role    | GitHub username |
 | ------------------- | ------------- | --------------- |
 | Siddhant Khandelwal | Product Owner | sidkhandelwal7  |
-| Terrick Wright      | Scrum Master  | tlw94-git       |
-| Jianghui Chen       | Developer     | ekkozero        |
+| Terrick Wright      | Scrum Master  | TLW94-git       |
+| Jianghui Chen       | Developer     | EkkoZero        |
 | Hayden Gilmer       | Developer     | hmg66           |
 
 ## Tech stack
@@ -39,7 +41,7 @@ Other tools: `venv` and `pip` for packages, `python-dotenv` for the `.env` file,
 
 ### Deployment diagram (end of Sprint 4)
 
-Everything runs on one laptop for now. Parts with a dashed gray border are planned and do not work yet.
+This diagram shows the Sprint 4 setup. The folder table below shows what has changed since then.
 
 ![UniRide deployment diagram](docs/sprint4/uniride-deployment-sprint4.png)
 
@@ -128,7 +130,7 @@ These commands are for the Terminal on macOS. The Windows versions are in the co
    python manage.py test
    ```
 
-   The last lines should say `Ran 9 tests` and `OK`.
+   The last line should say `OK`.
 
 To look at the saved accounts, make an admin user with `python manage.py createsuperuser`, start the server again, and open http://127.0.0.1:8000/admin/.
 
@@ -136,12 +138,12 @@ To look at the saved accounts, make an admin user with `python manage.py creates
 
 **`No matching distribution found for Django[argon2]==6.1.3`**
 
-The virtual environment was made with a Python older than 3.12. This often happens with Anaconda: if your terminal prompt starts with `(base)`, `python3` is Anaconda's Python, which can be older. Delete the virtual environment and make it again with a newer Python. Run these in the `uniride` folder. If your prompt shows `(.venv)`, run `deactivate` first.
+The virtual environment was made with a Python older than 3.12. This often happens with Anaconda: if your terminal prompt starts with `(base)`, `python3` is Anaconda's Python, which can be older. Move the old virtual environment aside and make a new one with a newer Python. Run these in the `uniride` folder. If your prompt shows `(.venv)`, run `deactivate` first.
 
 With Anaconda:
 
 ```
-rm -rf .venv
+mv .venv .venv-old
 conda create -n py313 python=3.13 -y
 conda run -n py313 python -m venv .venv
 source .venv/bin/activate
@@ -151,7 +153,7 @@ python --version
 Without Anaconda: install Python 3.13 from [python.org](https://www.python.org/downloads/), then:
 
 ```
-rm -rf .venv
+mv .venv .venv-old
 python3.13 -m venv .venv
 source .venv/bin/activate
 python --version
@@ -188,9 +190,47 @@ Run `python manage.py runserver 8001` and open http://127.0.0.1:8001/ instead.
 
 Our user stories are in `user-stories.md` and on the [issues page](https://github.com/sidkhandelwal7/UniRide/issues). The setup tasks for Sprint 4 have the `setup` label.
 
+## How we use Git
+
+We follow GitHub Flow. `main` always has working code, and every change goes through a pull request.
+
+| Branch type | Naming convention | Example |
+| ----------- | ----------------- | ------- |
+| Feature | `feature/<description>` | `feature/verify-email` |
+| Bugfix | `bugfix/<description>` | `bugfix/login-redirect` |
+| Main | `main` | `main` |
+
+Our rules:
+
+1. Nobody commits directly to `main`. Make a new branch from the newest `main` for each story or task.
+2. Branch descriptions are short, lowercase, and use dashes, for example `feature/post-ride`.
+3. Commit messages start with a type: `feat:`, `fix:`, `test:`, `docs:`, `ci:`, or `refactor:`. Example: `feat: add the post a ride page (US4)`.
+4. Open a pull request into `main` and link its issue in the description. Use `Closes #12` if the PR finishes the issue and `Refs #12` if it only does part of it. Work that is not a user story, like setting up CI, gets a task issue first.
+5. At least one teammate who did not write the PR reviews it and leaves a comment on a specific line: a question, a suggestion, or something they noticed.
+6. The Product Owner checks the acceptance criteria on the issue and approves the PR from the requirements side.
+7. CI has to pass before we merge. We merge with **Create a merge commit** and keep the branch, so the history stays visible.
+
+## Continuous integration
+
+Our CI is a GitHub Actions workflow in `.github/workflows/ci.yml`. It runs on every pull request into `main`, when the PR is opened and each time new commits are pushed to it. It also runs after each merge into `main`. It:
+
+1. installs Python 3.13 and our packages from `requirements.txt`,
+2. runs `python manage.py check` to look for problems in the Django project,
+3. runs `python manage.py makemigrations --check --dry-run` to make sure no model change is missing a migration,
+4. runs all of our tests with `python manage.py test`.
+
+The results are on the [Actions page](https://github.com/sidkhandelwal7/UniRide/actions). To run the same checks on your laptop before you push, run these in the `uniride` folder:
+
+```
+python manage.py check
+python manage.py makemigrations --check --dry-run
+python manage.py test
+```
+
+Next, we would like to add a linter (such as Ruff) and a test coverage report.
+
 ## One risk we still need to test
 
 We do not know yet whether UniRide's emails will reliably reach Pitt inboxes. Students must receive a one-time link at their @pitt.edu address to verify their account (FR13), since using Pitt Passport would require university approval (C3). Ride updates must also arrive within 60 seconds (FR12 and NFR2).
 
-If Pitt's spam filters delay or block these messages, students might not be able to finish signing up or could miss important ride updates. We have not tested this yet. We will test it when we build the verification email (US2) by sending emails to our own Pitt accounts.
-
+Issue #38 tracks real inbox delivery. For each test, record when the message was sent and arrived, and whether it went to Junk. Ride-update emails are still planned.
