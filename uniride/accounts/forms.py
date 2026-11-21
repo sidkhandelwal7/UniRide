@@ -8,7 +8,7 @@ from .models import User
 class RegisterForm(forms.Form):
     """Sign-up form for US1: name, Pitt email, and password."""
 
-    name = forms.CharField(max_length=100)
+    name = forms.CharField(max_length=100, required=False)
     email = forms.EmailField(label="Pitt email")
     password = forms.CharField(widget=forms.PasswordInput)
 
